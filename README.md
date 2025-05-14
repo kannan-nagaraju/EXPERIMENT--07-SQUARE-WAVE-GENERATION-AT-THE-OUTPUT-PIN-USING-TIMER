@@ -1,7 +1,6 @@
-# EXPERIMENT--07-SQUARE-WAVE-GENERATION-AT-THE-OUTPUT-PIN-USING-TIMER
-
-## REG NO:212223230097
+# EXPERIMENT 07 - SQUARE WAVE GENERATION AT THE OUTPUT PIN USING TIMER
 ## NAME:KANNAN N
+## REG NO:212223230097
 
 ### Aim:
 To generate a PWM wave at the timer pin output and  simuate it on  proteus using an virtual oscilloscope  
@@ -101,28 +100,29 @@ Step14. click on debug and simulate using simulation as shown below
 ## STM 32 CUBE PROGRAM :
 ```
 #include "main.h"
-
 TIM_HandleTypeDef htim2;
-
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_TIM2_Init(void);
-
 int main(void)
 {
   HAL_Init();
-  SystemClock_Config();
 
-  MX_GPIO_Init();
+  /SystemClock_Config();
+
+  /MX_GPIO_Init();
   MX_TIM2_Init();
+
+
+
   HAL_TIM_Base_Start(&htim2);
-  HAL_TIM_PWM_Init(&htim2);
-  HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
+   HAL_TIM_PWM_Init(&htim2);
+   HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
   while (1)
   {
   }
-
 }
+
 void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
@@ -181,7 +181,7 @@ static void MX_TIM2_Init(void)
     Error_Handler();
   }
   sConfigOC.OCMode = TIM_OCMODE_PWM1;
-  sConfigOC.Pulse = 700;
+  sConfigOC.Pulse = 900;
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
   if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
@@ -197,64 +197,91 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
 }
-
 void Error_Handler(void)
 {
   __disable_irq();
   while (1)
   {
   }
-  
 }
 
 #ifdef  USE_FULL_ASSERT
-
 void assert_failed(uint8_t *file, uint32_t line)
 {
 }
+#endif
 ```
 
-## Output screen shots of proteus  :
-![image](https://github.com/user-attachments/assets/dabf7845-1eec-4735-a440-60f3bc2f669d)
-
-
- ## CIRCUIT DIAGRAM (EXPORT THE GRAPHICS TO PDF AND ADD THE SCREEN SHOT HERE): 
- ![image](https://github.com/user-attachments/assets/5ac4e290-a959-4d0c-9d73-f1eab88d8adc)
 
 
 ## DUTY CYCLE AND FREQUENCY CALCULATION 
+## FOR DUTY RATIO 50%
+![Screenshot 2025-05-08 140505](https://github.com/user-attachments/assets/8e350c2b-b449-4869-9259-06343fcbfdcd)
+
+
+TON = 0.6ms
+
+TOFF = 0.6ms
+
+TOTAL TIME = 1.2ms
+
+FREQUENCY = 1/(TOTAL TIME)=1/(1.2ms)=833.33Hz
+
+## FOR DUTY RATIO 70%
+![image](https://github.com/user-attachments/assets/c93bddd9-4669-4b2a-b09e-ab462d74d4e0)
+
+
+TON = 0.84ms
+
+TOFF= 0.36
+
+TOTAL TIME = 1.2ms
+
+FREQUENCY = 1/(1.2ms) = 833.33Hz
+
+
+## FOR DUTY RATIO 90%
+
+TON = 1.08ms
+
+TOFF= 0.12ms
+
+TOTAL TIME = 1.2ms
+
+FREQUENCY = 1/(1.2ms) = 833.33Hz)
+
+## DUTY CYCLE AND FREQUENCY CALCULATION :
 FOR PULSE AT 500
 
-![image](https://github.com/user-attachments/assets/61aecb4d-a6ff-4acb-8400-56c555f08abd)
-
-
-TON = 
-TOFF=
-TOTAL TIME = 
-FREQUENCY = 1/(TOTAL TIME)
+TON = 2.1
+TOFF=2.1
+TOTAL TIME = 4.2
+Duty% = (2.1/4.2)*100=50%
 
 FOR PULSE AT 700
 
-![image](https://github.com/user-attachments/assets/b2ca5dfa-bf14-433d-b6ce-44558bf70e7e)
-
-
-TON = 
-TOFF=
-TOTAL TIME = 
-FREQUENCY = 1/(TOTAL TIME)
+TON = 1.7
+TOFF= 1.5
+TOTAL TIME = 3.2
+Duty% = (1.7/3.2)*100=53%
 
 
 FOR PULSE AT 900
-![image](https://github.com/user-attachments/assets/181b2fa5-376d-4ea4-baf6-453870a8204d)
 
+TON = 2.2
+TOFF= 2.4
+TOTAL TIME = 4.6
+Duty% = (2.2/4.6)*100=47%
 
-TON = 
-TOFF=
-TOTAL TIME = 
-FREQUENCY = 1/(TOTAL TIME)
+## Output screen shots of proteus  :
+ ![image](https://github.com/user-attachments/assets/d48ed122-6dab-4079-8233-1a9c7ee45493)
+
+ 
+ ## CIRCUIT DIAGRAM (EXPORT THE GRAPHICS TO PDF AND ADD THE SCREEN SHOT HERE): 
+ 
+![image](https://github.com/user-attachments/assets/cc9944a1-4888-4d0f-81e1-c3a5da6d098a)
+
 
 
 ## Result :
 A PWM Signal is generated using the following frequency and various duty cycles are simulated 
-
-
